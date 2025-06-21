@@ -14,7 +14,7 @@ let error line message = report line "" message
   
 let run code = 
   let tokens = Scanner.scan_tokens code in
-  List.iter (fun token -> print_endline (Token.to_string token)) tokens
+  List.iter (fun token -> print_endline (Token.string_of_token token)) tokens
 
 let run_prompt () = 
   let try_read_line () = try Some(read_line ()) with End_of_file -> None in
