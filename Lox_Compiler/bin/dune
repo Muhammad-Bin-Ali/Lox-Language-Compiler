@@ -1,4 +1,4 @@
 (executable
  (public_name Lox_Compiler)
- (name main)
+ (name lox)
  (libraries Lox_Compiler))

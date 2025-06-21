@@ -7,13 +7,23 @@ let read_file filename =
   let lines = loop [] in
   String.concat "" lines
 
-let run code = ()
+let report line where message = 
+  Printf.eprintf "[line %d] Error%s: %s\n" line where message
+  
+let error line message = report line "" message
+  
+let run code = 
+  let tokens = Scanner.scan_tokens code in
+  List.iter (fun token -> print_endline (Token.to_string token)) tokens
 
 let run_prompt () = 
+  let try_read_line () = try Some(read_line ()) with End_of_file -> None in
   let rec loop () =
-    let line = read_line () in
-    run line
-    loop () in
+    let line = try_read_line () in
+    match line with 
+    | Some line -> run line; loop ()
+    | None -> print_endline "Exiting Lox interpreter."; exit 0
+  in
   loop ()
 
 
